@@ -1,5 +1,5 @@
-import EnhancedTable from "./components/EnhancedTable";
+import DataTable from "./components/DataTable";
 
-const App = () => <EnhancedTable />;
+const App = () => <DataTable />;
 
 export default App;
