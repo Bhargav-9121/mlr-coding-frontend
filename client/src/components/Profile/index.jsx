@@ -11,9 +11,6 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  // MDBBtn,
-  // MDBBreadcrumb,
-  // MDBBreadcrumbItem,
   MDBProgress,
   MDBProgressBar,
   MDBIcon,
@@ -24,15 +21,9 @@ import DashBoard from "../DashBoard";
 
 export default function ProfilePage() {
   return (
-// <<<<<<< main
+
     <section style={{ backgroundColor: '#eee' , paddingTop :'50px'}}>
       <MDBContainer className="py-5">
-
-// =======
-//     <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
-//       <h1 className="logoThing">Logo</h1>
-//       <MDBContainer className="py-5">
-// >>>>>>> main
         <MDBRow>
           <MDBCol lg="4">
             <MDBCard className="mb-4">
@@ -150,18 +141,13 @@ export default function ProfilePage() {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
-// <<<<<<< main
+
           <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
                       <div>Coding Analysis:</div>
                       <DashBoard stats={stats}/>
-// =======
-//             <MDBRow className="mb-4">
-//               <MDBCard>
-//                 <MDBCardBody>
-//                   <DashBoard />
-// >>>>>>> main
+
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>
