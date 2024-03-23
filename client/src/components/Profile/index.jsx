@@ -1,5 +1,8 @@
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
+import "./index.css";
+
 import {
   MDBCol,
   MDBContainer,
@@ -8,9 +11,9 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBBtn,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
+  // MDBBtn,
+  // MDBBreadcrumb,
+  // MDBBreadcrumbItem,
   MDBProgress,
   MDBProgressBar,
   MDBIcon,
@@ -19,24 +22,11 @@ import {
 } from "mdb-react-ui-kit";
 import DashBoard from "../DashBoard";
 
-export default function ProfilePage({ stats }) {
+export default function ProfilePage() {
   return (
-    <section style={{ backgroundColor: "#eee" }}>
+    <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
+      <h1 className="logoThing">Logo</h1>
       <MDBContainer className="py-5">
-        <MDBRow>
-          <MDBCol>
-            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-              <MDBBreadcrumbItem>
-                <a href="#">Home</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a href="#">User</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-            </MDBBreadcrumb>
-          </MDBCol>
-        </MDBRow>
-
         <MDBRow>
           <MDBCol lg="4">
             <MDBCard className="mb-4">
@@ -58,9 +48,9 @@ export default function ProfilePage({ stats }) {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">
+                    {/* <MDBCardText className="text-muted">
                       {stats && stats.Name}
-                    </MDBCardText>
+                    </MDBCardText> */}
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -154,9 +144,11 @@ export default function ProfilePage({ stats }) {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
-            <MDBRow className="mb-md-4">
+            <MDBRow className="mb-4">
               <MDBCard>
-                <DashBoard stats={stats} />
+                <MDBCardBody>
+                  <DashBoard />
+                </MDBCardBody>
               </MDBCard>
             </MDBRow>
             <MDBRow>

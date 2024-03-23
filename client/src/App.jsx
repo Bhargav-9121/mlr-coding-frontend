@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DataTable from "./components/DataTable";
-// import DashBoard from "./components/DashBoard";
 import api from "./api/axiosConfig";
 import ProfilePage from "./components/Profile";
-// import NavBar from "./components/NavBar";
+import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./components/Login";
 import NotFound from "./components/NotFound";
@@ -42,6 +41,7 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route exact path="/" element={<Login />} />
         <Route element={<ProtectedRoute />}>
