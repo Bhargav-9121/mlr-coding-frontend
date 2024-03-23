@@ -4,13 +4,10 @@ import DataTable from "./components/DataTable";
 import api from "./api/axiosConfig";
 import ProfilePage from "./components/Profile";
 import NavBar from "./components/NavBar";
-// <<<<<<< main
-// import LoginPage from "./components/LoginPage"
-// =======
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage"
 import NotFound from "./components/NotFound";
-// >>>>>>> main
+
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -47,11 +44,7 @@ const App = () => {
     <BrowserRouter>
       <NavBar />
       <Routes>
-// <<<<<<< main
-//         <Route path="/leaderboard" element={<DataTable data={data} onLoad={getData} />} />
-//         <Route path="/profile" element={<ProfilePage stats={stats} onLoad={getStats}/>} />
-//         <Route path="/login" element={<LoginPage/>} />
-// =======
+
         <Route exact path="/" element={<LoginPage />} />
         <Route element={<ProtectedRoute />}>
           <Route
@@ -64,7 +57,6 @@ const App = () => {
           />
         </Route>
         <Route path="*" element={<NotFound />} />
-// >>>>>>> main
       </Routes>
     </BrowserRouter>
   );
