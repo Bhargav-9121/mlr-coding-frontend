@@ -120,6 +120,7 @@ export default function ProfilePage({stats}) {
           <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
+                      <div>Coding Analysis:</div>
                       <DashBoard stats={stats}/>
                 </MDBCardBody>
               </MDBCard>

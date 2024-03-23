@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import { NavDropdown } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
+import { MdLeaderboard } from "react-icons/md";
+import { IoBookOutline } from "react-icons/io5";
+import { MdWork } from "react-icons/md";
+import { IoMdGift } from "react-icons/io";
 import './styles.scss';
 
 function NavBar({username, profilePicture}) {
@@ -13,11 +17,39 @@ function NavBar({username, profilePicture}) {
           <Navbar.Brand as={Link} to="/leaderboard">Home</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto me-auto">
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">Leaderboard</Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">XP & Rewards</Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">Jobs</Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">Courses</Nav.Link>
+            <Nav className="ms-auto me-auto" style={{ gap: '5vw', fontSize: '1.1rem'  }}>
+              <Nav.Link as={Link} to="/leaderboard" className="text-white">
+                <div align = 'center'>
+                  <MdLeaderboard/>
+                  <br/>
+                  <div>Leaderboard</div>
+                  
+                </div>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/leaderboard" className="text-white">
+              <div align = 'center'>
+                  <IoBookOutline/>
+                  <br/>
+                  <div>Courses</div>
+                  
+                </div>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/leaderboard" className="text-white">
+              <div align = 'center'>
+                  <MdWork/>
+                  <br/>
+                  <div>Jobs</div>
+                  
+                </div>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/leaderboard" className="text-white">
+              <div align = 'center'>
+                  <IoMdGift/>
+                  <br/>
+                  <div>XP</div>
+                  
+                </div>
+              </Nav.Link>
             </Nav>
             <Nav>
               <NavDropdown

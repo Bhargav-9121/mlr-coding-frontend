@@ -5,6 +5,7 @@ import DashBoard from "./components/DashBoard";
 import api from "./api/axiosConfig";
 import ProfilePage from "./components/Profile";
 import NavBar from "./components/NavBar";
+import LoginPage from "./components/LoginPage"
 
 const App = () => {
     const [data, setData] = useState([]);
@@ -48,6 +49,7 @@ const App = () => {
       <Routes>
         <Route path="/leaderboard" element={<DataTable data={data} onLoad={getData} />} />
         <Route path="/profile" element={<ProfilePage stats={stats} onLoad={getStats}/>} />
+        <Route path="/login" element={<LoginPage/>} />
       </Routes>
     </BrowserRouter>
   );
