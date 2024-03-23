@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DataTable from "./components/DataTable";
 import DashBoard from "./components/DashBoard"; 
 import api from "./api/axiosConfig";
+import ProfilePage from "./components/Profile";
+import NavBar from "./components/NavBar";
 
 const App = () => {
     const [data, setData] = useState([]);
@@ -42,9 +44,10 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <NavBar username={username}/>
       <Routes>
         <Route path="/leaderboard" element={<DataTable data={data} onLoad={getData} />} />
-        <Route path="/profile" element={<DashBoard stats={stats} onLoad={getStats}/>} />
+        <Route path="/profile" element={<ProfilePage stats={stats} onLoad={getStats}/>} />
       </Routes>
     </BrowserRouter>
   );
