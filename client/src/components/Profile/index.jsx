@@ -23,21 +23,8 @@ import DashBoard from '../DashBoard';
 export default function ProfilePage({stats}) {
 
   return (
-    <section style={{ backgroundColor: '#eee' }}>
+    <section style={{ backgroundColor: '#eee' , paddingTop :'50px'}}>
       <MDBContainer className="py-5">
-        <MDBRow>
-          <MDBCol>
-            <MDBBreadcrumb className="bg-light rounded-3 p-3 mb-4">
-              <MDBBreadcrumbItem>
-                <a href='#'>Home</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem>
-                <a href="#">User</a>
-              </MDBBreadcrumbItem>
-              <MDBBreadcrumbItem active>User Profile</MDBBreadcrumbItem>
-            </MDBBreadcrumb>
-          </MDBCol>
-        </MDBRow>
 
         <MDBRow>
           <MDBCol lg="4">
@@ -130,9 +117,11 @@ export default function ProfilePage({stats}) {
             
           </MDBCol>
           <MDBCol lg="8">
-            <MDBRow className="mb-md-4">
+          <MDBRow className="mb-4">
               <MDBCard>
-              <DashBoard stats={stats}/>
+                <MDBCardBody>
+                      <DashBoard stats={stats}/>
+                </MDBCardBody>
               </MDBCard>
             </MDBRow>
             <MDBRow>

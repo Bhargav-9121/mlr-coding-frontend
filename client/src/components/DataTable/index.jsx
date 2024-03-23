@@ -66,6 +66,7 @@ export default function DataTable({ data }) {
 
   return (
     <div>
+      <div style={ {paddingTop :'70px', display:"flex", justifyContent:'center', fontSize:'20px'} }>Batch 2026 - Leaderboard</div>
       <StripedDataGrid rows={data} columns={columns} 
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
@@ -79,10 +80,14 @@ export default function DataTable({ data }) {
           },
           '& .super-app-theme--cell': {
             display: "flex",
+            fontWeight: "bold",
+            fontFamily: "roboto",
             justifyContent: "center",
             borderRight: "1px solid rgba(224, 224, 224, 1)"
           },
           '& .super-app-theme--name': {
+            fontFamily: "roboto",
+            fontWeight: "bold",
             borderRight: "1px solid rgba(224, 224, 224, 1)"
           },
           '& .super-app-theme--even': {
