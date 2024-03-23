@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+// <<<<<<< main
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import { NavDropdown } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
@@ -8,8 +7,22 @@ import { IoBookOutline } from "react-icons/io5";
 import { MdWork } from "react-icons/md";
 import { IoMdGift } from "react-icons/io";
 import './styles.scss';
+import { Link, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 function NavBar({username, profilePicture}) {
+  
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isLoggedIn = Cookies.get("jwtToken") !== undefined;
+  
+  const logOut = () => {
+    Cookies.remove("jwtToken");
+    navigate("/", { replace: true });
+  };
+  
   return (
     <>
       <Navbar className="bg-purple" variant="dark" expand="lg" fixed="top">
@@ -52,6 +65,8 @@ function NavBar({username, profilePicture}) {
               </Nav.Link>
             </Nav>
             <Nav>
+                
+                {isLoggedIn && (
               <NavDropdown
                 id="nav-dropdown-dark-example"
                 title={<FaUser />}
@@ -65,11 +80,62 @@ function NavBar({username, profilePicture}) {
                 <NavDropdown.Item as={Link} to="/profile">
                   Action
                 </NavDropdown.Item>
+
+{location.pathname !== "/" && (
+              <NavDropdown.Item onClick={logOut} as={Link} to="/">
+                  LogOut
+                </NavDropdown.Item>
+            )}
+
+
               </NavDropdown>
+            )}
+                
+              
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+// =======
+// import { Link, useLocation } from "react-router-dom";
+// import { Navbar, Container, Nav } from "react-bootstrap";
+// import { useNavigate } from "react-router-dom";
+// import Cookies from "js-cookie";
+
+// function NavBar() {
+//   const navigate = useNavigate();
+//   const location = useLocation();
+
+//   const isLoggedIn = Cookies.get("jwtToken") !== undefined;
+
+//   const logOut = () => {
+//     Cookies.remove("jwtToken");
+//     navigate("/", { replace: true });
+//   };
+
+//   return (
+//     <>
+//       {isLoggedIn && (
+//         <Navbar bg="primary" variant="dark">
+//           <Container>
+//             <Navbar.Brand as={Link} to="/leaderboard">
+//               Home
+//             </Navbar.Brand>
+//             <Nav className="me-auto">
+//               <Nav.Link as={Link} to="/leaderboard">
+//                 Features
+//               </Nav.Link>
+//               <Nav.Link as={Link} to="/leaderboard">
+//                 Pricing
+//               </Nav.Link>
+//             </Nav>
+//             {location.pathname !== "/" && (
+//               <button onClick={logOut}>LogOut</button>
+//             )}
+//           </Container>
+//         </Navbar>
+//       )}
+// >>>>>>> main
     </>
   );
 }
