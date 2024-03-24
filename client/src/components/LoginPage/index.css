@@ -1,4 +1,9 @@
-.main{
-    display: flex;
-    flex-direction: column;
+.main {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginNav {
+  margin-left: 40px;
+  margin-top: 18px;
 }
