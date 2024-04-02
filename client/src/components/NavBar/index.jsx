@@ -1,4 +1,3 @@
-// <<<<<<< main
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import { NavDropdown } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
@@ -11,7 +10,6 @@ import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 
-// function NavBar({ username, profilePicture }) {
 function NavBar() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -75,7 +73,6 @@ function NavBar() {
                 >
                   <NavDropdown.Item as={Link} to="/profile">
                     <Image
-                      // src={profilePicture}
                       roundedCircle
                       style={{
                         width: "30px",
