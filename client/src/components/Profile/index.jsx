@@ -18,7 +18,10 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 
-export default function ProfilePage() {
+export default function ProfilePage({stats}) {
+  if (!stats) {
+    return <div>Loading...</div>;
+  }
   return (
     <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
       <MDBContainer className="py-5">
@@ -42,11 +45,13 @@ export default function ProfilePage() {
                   <MDBCol sm="3">
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
-                  {/* <MDBCol sm="9">
+
+                  <MDBCol sm="9">
                     <MDBCardText className="text-muted">
                       {stats && stats.Name}
                     </MDBCardText>
-                  </MDBCol> */}
+                  </MDBCol>
+
                 </MDBRow>
                 <hr />
                 <MDBRow>
@@ -142,8 +147,10 @@ export default function ProfilePage() {
             <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
-                  <div>Coding Analysis:</div>
-                  {/* <DashBoard stats={stats} /> */}
+
+                      <div>Coding Analysis:</div>
+                      <DashBoard stats={stats}/>
+
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>

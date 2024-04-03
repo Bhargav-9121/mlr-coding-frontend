@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LottieAnimation = ({ src, width, height, loop = true, autoplay = true, speed = 1 }) => {
+const LottieAnimation = ({ src, width, height, loop = true, autoplay = true, speed = 1 ,onAnimationLoad}) => {
   // Ensure the script is loaded only once
   const [scriptLoaded, setScriptLoaded] = React.useState(false);
 
@@ -16,7 +16,9 @@ const LottieAnimation = ({ src, width, height, loop = true, autoplay = true, spe
     }
   }, [scriptLoaded]); // Only load the script if not already loaded
 
+
   return (
+    
     <div style={{ width, height }}>
       {scriptLoaded && <dotlottie-player // Render the player only after script loads
         src={src}
@@ -26,7 +28,10 @@ const LottieAnimation = ({ src, width, height, loop = true, autoplay = true, spe
         autoplay={autoplay}
       />}
     </div>
+    
   );
+  
+  
 };
 
 export default LottieAnimation;
