@@ -9,6 +9,7 @@ import './styles.scss';
 import { Link, useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { FaLaptopCode } from "react-icons/fa6";
 
 function NavBar({username, profilePicture}) {
   
@@ -59,6 +60,14 @@ function NavBar({username, profilePicture}) {
                   <IoMdGift/>
                   <br/>
                   <div>XP</div>
+                  
+                </div>
+              </Nav.Link>
+              <Nav.Link as={Link} to="/leaderboard" className="text-white">
+              <div align = 'center'>
+                  <FaLaptopCode/>
+                  <br/>
+                  <div>Contests</div>
                   
                 </div>
               </Nav.Link>

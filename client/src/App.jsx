@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage"
 import NotFound from "./components/NotFound";
+import Personal from "./components/Personal";
 
 
 const App = () => {
@@ -24,12 +25,13 @@ const App = () => {
 
   const [stats, setStats] = useState(null);
 
-  const username = "Matsa Diwakar";
+  const username = "Pabboju Sandeep Chary";
   const getStats = async () => {
     try {
       const response = await api.get("/leaderboard");
       const person = response.data.find((person) => person.Name === username);
       setStats(person);
+      console.log(person)
     } catch (error) {
       console.log(error);
     }
@@ -37,25 +39,31 @@ const App = () => {
 
   useEffect(() => {
     getData();
-    getStats();
+  }, []);
+
+  useEffect(() => {
+      getStats();
   }, []);
 
   return (
     <BrowserRouter>
       <NavBar />
       <Routes>
-
         <Route exact path="/" element={<LoginPage />} />
-        <Route element={<ProtectedRoute />}>
+        {/* <Route element={<ProtectedRoute />}> */}
           <Route
             path="/leaderboard"
             element={<DataTable data={data} onLoad={getData} />}
           />
           <Route
+            path="/personal"
+            element={<Personal data={data} onLoad={getData} />}
+          />
+          <Route
             path="/profile"
             element={<ProfilePage stats={stats} onLoad={getStats} />}
           />
-        </Route>
+        {/* </Route> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

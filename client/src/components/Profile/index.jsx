@@ -19,7 +19,10 @@ import {
 } from "mdb-react-ui-kit";
 import DashBoard from "../DashBoard";
 
-export default function ProfilePage() {
+export default function ProfilePage({stats}) {
+  if (!stats) {
+    return <div>Loading...</div>;
+  }
   return (
 
     <section style={{ backgroundColor: '#eee' , paddingTop :'50px'}}>
@@ -45,9 +48,9 @@ export default function ProfilePage() {
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    {/* <MDBCardText className="text-muted">
+                    <MDBCardText className="text-muted">
                       {stats && stats.Name}
-                    </MDBCardText> */}
+                    </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -147,7 +150,6 @@ export default function ProfilePage() {
                 <MDBCardBody>
                       <div>Coding Analysis:</div>
                       <DashBoard stats={stats}/>
-
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>

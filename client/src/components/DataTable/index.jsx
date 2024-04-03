@@ -66,7 +66,7 @@ export default function DataTable({ data }) {
 
   return (
     <div>
-      <div style={ {paddingTop :'70px', display:"flex", justifyContent:'center', fontSize:'20px'} }>Batch 2026 - Leaderboard</div>
+      <div style={ {paddingTop :'100px', display:"flex", justifyContent:'center', fontSize:'20px'} }>Batch 2026 - Leaderboard</div>
       <StripedDataGrid rows={data} columns={columns} 
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
