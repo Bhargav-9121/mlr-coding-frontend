@@ -5,7 +5,7 @@
 // const Forgot = () => {
 //   const navigate = useNavigate();
 
-//   const [emailId, changeEmailId] = useState("")
+//   const [emailId, changeEmailId] = useState("");
 
 //   useEffect(() => {
 //     const jwtToken = Cookies.get("jwtToken");
@@ -14,15 +14,42 @@
 //     }
 //   });
 
-//   const sendOTP = () => {
-//     const otp=1234;
+//   const sendOTP = async (event) => {
+//     event.preventDefault();
 
-//   }
+//     const email = { emailId };
+//     const options = {
+//       method: "POST",
+//       body: JSON.stringify(email),
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     };
+//     try {
+//       const res = await fetch(
+//         "https://dbops.onrender.com/send_user_credentials",
+//         options
+//       );
+
+//       if (!res.ok) {
+//         throw new Error("Error");
+//       }
+
+//       const data = await res.json();
+//       //   submitSuccess(data.jwtToken);
+//     } catch (error) {
+//       console.error("Error:", error);
+//     }
+//   };
 
 //   return (
 //     <form onSubmit={sendOTP}>
 //       <h1>Forgot Password</h1>
-//       <input type="email" onChange={(e)} placeholder="Enter your email" />
+//       <input
+//         type="email"
+//         onChange={(e) => changeEmailId(e.target.value)}
+//         placeholder="Enter your email"
+//       />
 //       <button type="submit">Send OTP</button>
 //     </form>
 //   );
