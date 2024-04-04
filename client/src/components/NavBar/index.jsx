@@ -26,89 +26,52 @@ function NavBar() {
     <>
       <Navbar className="bg-purple" variant="dark" expand="lg" fixed="top">
         <Container>
-          <Navbar.Brand as={Link} to="/leaderboard">Home</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/leaderboard">
+            Home
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto me-auto" style={{ gap: '5vw', fontSize: '1.1rem'  }}>
+            <Nav
+              className="ms-auto me-auto"
+              style={{ gap: "5vw", fontSize: "1.1rem" }}
+            >
               <Nav.Link as={Link} to="/leaderboard" className="text-white">
-                <div align = 'center'>
-                  <MdLeaderboard/>
-                  <br/>
+                <div align="center">
+                  <MdLeaderboard />
+                  <br />
                   <div>Leaderboard</div>
-                  
                 </div>
               </Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">
-              <div align = 'center'>
-                  <IoBookOutline/>
-                  <br/>
+              <Nav.Link as={Link} to="/courses" className="text-white">
+                <div align="center">
+                  <IoBookOutline />
+                  <br />
                   <div>Courses</div>
-                  
                 </div>
               </Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">
-              <div align = 'center'>
-                  <MdWork/>
-                  <br/>
+              <Nav.Link as={Link} to="/jobs" className="text-white">
+                <div align="center">
+                  <MdWork />
+                  <br />
                   <div>Jobs</div>
-                  
                 </div>
               </Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">
-              <div align = 'center'>
-                  <IoMdGift/>
-                  <br/>
+              <Nav.Link as={Link} to="/xp" className="text-white">
+                <div align="center">
+                  <IoMdGift />
+                  <br />
                   <div>XP</div>
-                  
                 </div>
               </Nav.Link>
-              <Nav.Link as={Link} to="/leaderboard" className="text-white">
-              <div align = 'center'>
-                  <FaLaptopCode/>
-                  <br/>
+              <Nav.Link as={Link} to="/contests" className="text-white">
+                <div align="center">
+                  <FaLaptopCode />
+                  <br />
                   <div>Contests</div>
-                  
                 </div>
               </Nav.Link>
             </Nav>
-            <Nav>
-                
-                {isLoggedIn && (
-              <NavDropdown
-                id="nav-dropdown-dark-example"
-                title={<FaUser />}
-                menuVariant="light"
-                align="end"
-              >
-                <Nav.Link as={Link} to="/leaderboard" className="text-white">
-                  <div>
-                    <MdLeaderboard />
-                    <br />
-                    <div>Leaderboard</div>
-                  </div>
-                </Nav.Link>
-                <Nav.Link as={Link} to="" className="text-white">
-                  <div>
-                    <IoBookOutline />
-                    <br />
-                    <div>Courses</div>
-                  </div>
-                </Nav.Link>
-                <Nav.Link as={Link} to="" className="text-white">
-                  <div>
-                    <MdWork />
-                    <br />
-                    <div>Jobs</div>
-                  </div>
-                </Nav.Link>
-                <Nav.Link as={Link} to="" className="text-white">
-                  <div>
-                    <IoMdGift />
-                    <br />
-                    <div>XP</div>
-                  </div>
-                </Nav.Link>
-              </Nav>
+            {isLoggedIn && (
               <Nav>
                 <NavDropdown
                   id="nav-dropdown-dark-example"
@@ -127,10 +90,9 @@ function NavBar() {
                     />
                     My Profile
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/profile">
+                  <NavDropdown.Item as={Link} to="/action">
                     Action
                   </NavDropdown.Item>
-
                   {location.pathname !== "/" && (
                     <NavDropdown.Item as={Link} to="/" onClick={logOut}>
                       LogOut
@@ -138,10 +100,10 @@ function NavBar() {
                   )}
                 </NavDropdown>
               </Nav>
-            </Navbar.Collapse>
-          </Container>
-        </Navbar>
-      )}
+            )}
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </>
   );
 }
