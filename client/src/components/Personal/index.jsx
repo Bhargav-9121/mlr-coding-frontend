@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Cookies from "js-cookie";
 import {
   MDBBtn,
   MDBContainer,
@@ -7,7 +8,6 @@ import {
   MDBCard,
   MDBCardBody,
   MDBInput,
-  MDBTextArea,
   MDBFile,
   MDBCardImage,
   MDBRadio,
@@ -17,21 +17,27 @@ import api from "../../api/axiosConfig";
 
 function Personal() {
   const [formData, setFormData] = useState({
-    username: "",
-    fullName: "",
-    aboutMe: "",
+    about_me: "",
     gender: "",
-    dateOfBirth: "",
+    dob: "",
     building: "",
     street: "",
     city: "",
     state: "",
-    postalCode: "",
+    postal_code: "",
+    fb_handle: "",
+    twitter_handle: "",
     github: "",
-    linkedin: "",
-    x: "",
-    instagram: "",
+    linkedin_handle: "",
+    insta_handle: "",
   });
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value,
+    });
+  };
 
   const [selectedCV, setSelectedCV] = useState(null);
   const [selectedCertifications, setSelectedCertifications] = useState([]);
@@ -181,23 +187,26 @@ function Personal() {
     }
   };
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
-    console.log(e.target.value);
-  };
-
   const handleSubmit = async () => {
+    const jwtToken = Cookies.get("jwtToken");
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${jwtToken}`,
+      },
+      body: JSON.stringify(formData),
+    };
+
+    console.log(options.body);
+
     try {
-      const response = await api.post("/personal", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        "https://scoretracking-vishnu.onrender.com/udetails",
+        options
+      );
+
       if (response.ok) {
         // Handle successful response
         console.log("Data submitted successfully");
@@ -206,7 +215,6 @@ function Personal() {
         console.error("Failed to submit data");
       }
     } catch (error) {
-      console.log(JSON.stringify(formData));
       console.error("Error occurred while submitting data:", error);
     }
   };
@@ -341,7 +349,6 @@ function Personal() {
                   <MDBCol md="3">
                     <h6 className="mb-0">Upload Certifications</h6>
                   </MDBCol>
-
                   <MDBCol md="9">
                     <MDBFile
                       multiple
@@ -422,7 +429,7 @@ function Personal() {
                       label="Message"
                       onChange={handleInputChange}
                       size="lg"
-                      id="aboutMe"
+                      id="about_me"
                       rows={3}
                       type="text"
                     />
@@ -478,7 +485,7 @@ function Personal() {
                       label="Date"
                       size="lg"
                       onChange={handleInputChange}
-                      id="dateOfBirth"
+                      id="dob"
                       type="date"
                     />
                   </MDBCol>
@@ -567,7 +574,7 @@ function Personal() {
                     <MDBInput
                       label="Postal Code"
                       size="lg"
-                      id="postalCode"
+                      id="postal_code"
                       onChange={handleInputChange}
                       type="number"
                     />
@@ -600,10 +607,10 @@ function Personal() {
                           <MDBInput
                             wrapperClass=""
                             icon={CiLink}
-                            label="LinkedIn"
+                            label="linkedin_handle"
                             size="lg"
                             onChange={handleInputChange}
-                            id="linkedin"
+                            id="linkedin_handle"
                             type="url"
                           />
                           <p className="form-helper">Example : www.linked.in</p>
@@ -626,9 +633,9 @@ function Personal() {
                         <MDBCol md="6">
                           <MDBInput
                             wrapperClass=""
-                            label="Instagram"
+                            label="insta_handle"
                             size="lg"
-                            id="instagram"
+                            id="insta_handle"
                             onChange={handleInputChange}
                             type="text"
                           />

@@ -27,7 +27,7 @@ function NavBar() {
       <Navbar className="bg-purple" variant="dark" expand="lg" fixed="top">
         <Container>
           <Navbar.Brand as={Link} to="/leaderboard">
-            Home
+            MLR Eyuuuu
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">

@@ -1,58 +1,125 @@
-// import { useEffect, useNavigate } from "react-router-dom";
-// import Cookies from "js-cookie";
-// import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useEffect, useState } from "react";
 
-// const Forgot = () => {
-//   const navigate = useNavigate();
+const Forgot = () => {
+  const navigate = useNavigate();
 
-//   const [emailId, changeEmailId] = useState("");
+  const [email, setEmail] = useState("");
+  const [OTP, setOTP] = useState("");
+  const [enteredOTP, setEnteredOTP] = useState("");
+  const [verificationError, setVerificationError] = useState(null);
+  const [otpSent, setOtpSent] = useState(false); // Track whether OTP has been sent
 
-//   useEffect(() => {
-//     const jwtToken = Cookies.get("jwtToken");
-//     if (jwtToken !== undefined) {
-//       navigate("/profile", { replace: true });
-//     }
-//   });
+  useEffect(() => {
+    generateOTP();
+  }, []); // Run once on mount
 
-//   const sendOTP = async (event) => {
-//     event.preventDefault();
+  useEffect(() => {
+    const jwtToken = Cookies.get("jwtToken");
+    if (jwtToken !== undefined) {
+      navigate("/contests", { replace: true });
+    }
+  }, [navigate]); // Only run this effect when navigate changes
 
-//     const email = { emailId };
-//     const options = {
-//       method: "POST",
-//       body: JSON.stringify(email),
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
-//     try {
-//       const res = await fetch(
-//         "https://dbops.onrender.com/send_user_credentials",
-//         options
-//       );
+  const generateOTP = async () => {
+    const generatedOTP = Math.floor(100000 + Math.random() * 900000);
+    setOTP(generatedOTP.toString());
+  };
 
-//       if (!res.ok) {
-//         throw new Error("Error");
-//       }
+  const submitClicked = async (event) => {
+    event.preventDefault();
 
-//       const data = await res.json();
-//       //   submitSuccess(data.jwtToken);
-//     } catch (error) {
-//       console.error("Error:", error);
-//     }
-//   };
+    const emailData = { email, OTP };
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(emailData),
+    };
+    console.log(options.body);
+    try {
+      const res = await fetch(
+        "https://scoretracking-vishnu.onrender.com/sendotp",
+        options
+      );
 
-//   return (
-//     <form onSubmit={sendOTP}>
-//       <h1>Forgot Password</h1>
-//       <input
-//         type="email"
-//         onChange={(e) => changeEmailId(e.target.value)}
-//         placeholder="Enter your email"
-//       />
-//       <button type="submit">Send OTP</button>
-//     </form>
-//   );
-// };
+      if (!res.ok) {
+        throw new Error("Error");
+      }
 
-// export default Forgot;
+      console.log(res);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+
+    // Generate OTP when form is submitted
+    setOtpSent(true); // Set otpSent to true after sending OTP
+  };
+
+  const verifyOTP = async () => {
+    if (enteredOTP === OTP) {
+      const emailData = { email };
+      const options = {
+        method: "POST",
+        body: JSON.stringify(emailData),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      try {
+        const res = await fetch(
+          "https://scoretracking-vishnu.onrender.com/getcreds",
+          options
+        );
+
+        if (!res.ok) {
+          throw new Error("Error");
+        }
+
+        const data = await res.json();
+
+        console.log(data);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+      console.log("OTP verification successful");
+    } else {
+      setVerificationError("Invalid OTP. Please try again.");
+    }
+  };
+
+  return (
+    <div>
+      <form style={{ paddingTop: "100px" }} onSubmit={submitClicked}>
+        <h1>Forgot Credentials</h1>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter your email"
+        />
+        <button type="submit">Send OTP</button>
+      </form>
+
+      {otpSent && (
+        <div style={{ paddingTop: "100px" }}>
+          <h2>Enter OTP</h2>
+          <input
+            type="text"
+            value={enteredOTP}
+            onChange={(e) => setEnteredOTP(e.target.value)}
+            placeholder="Enter OTP"
+          />
+          <button onClick={verifyOTP}>Get Credentials</button>
+          {verificationError && (
+            <p style={{ paddingTop: "100px" }}>{verificationError}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default Forgot;

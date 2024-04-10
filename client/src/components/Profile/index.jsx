@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -18,7 +20,53 @@ import {
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
 
-export default function ProfilePage({stats}) {
+export default function ProfilePage({ stats }) {
+  const [userDetails, setUserDetails] = useState({
+    dob: "",
+    gender: "",
+    about_me: "",
+    building: "",
+    state: "",
+    city: "",
+    street: "",
+    postal_code: "",
+    fb_handle: "",
+    twitter_handle: "",
+    insta_handle: "",
+    linkedin_handle: "",
+    github: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUserDetails((prevUserDetails) => ({
+      ...prevUserDetails,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(
+        "https://scoretracking-vishnu.onrender.com/udetails",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userDetails),
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      // Handle success
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   if (!stats) {
     return <div>Loading...</div>;
   }
@@ -51,7 +99,6 @@ export default function ProfilePage({stats}) {
                       {stats && stats.Name}
                     </MDBCardText>
                   </MDBCol>
-
                 </MDBRow>
                 <hr />
                 <MDBRow>
@@ -147,10 +194,8 @@ export default function ProfilePage({stats}) {
             <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
-
-                      <div>Coding Analysis:</div>
-                      <DashBoard stats={stats}/>
-
+                  <div>Coding Analysis:</div>
+                  <DashBoard stats={stats} />
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>
