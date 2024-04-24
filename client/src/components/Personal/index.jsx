@@ -16,6 +16,7 @@ import { CiLink } from "react-icons/ci";
 import api from "../../api/axiosConfig";
 
 function Personal() {
+  const jwtToken = Cookies.get("jwtToken");
   const [formData, setFormData] = useState({
     about_me: "",
     gender: "",
@@ -30,6 +31,9 @@ function Personal() {
     github: "",
     linkedin_handle: "",
     insta_handle: "",
+    name: "",
+    user_name: "",
+    profile: "",
   });
 
   const handleInputChange = (e) => {
@@ -95,11 +99,12 @@ function Personal() {
     try {
       setUploadingCV(true);
       const formData = new FormData();
-      formData.append("cv", selectedCV);
+      formData.append("file", selectedCV);
 
-      const response = await api.post("/upload-cv", formData, {
+      const response = await api.post("/uresume", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${jwtToken}`,
         },
       });
 
@@ -153,7 +158,6 @@ function Personal() {
       setUploadingCertifications(false);
     }
   };
-
   const handlePhotoUpload = async () => {
     if (!selectedPhoto) {
       console.error("No photo selected");
@@ -163,11 +167,12 @@ function Personal() {
     try {
       setUploadingPhoto(true);
       const formData = new FormData();
-      formData.append("photo", selectedPhoto);
+      formData.append("file", selectedPhoto);
 
-      const response = await api.post("/upload-photo", formData, {
+      const response = await api.post("/uimage", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          authorization: `Bearer ${jwtToken}`,
         },
       });
 
@@ -188,8 +193,6 @@ function Personal() {
   };
 
   const handleSubmit = async () => {
-    const jwtToken = Cookies.get("jwtToken");
-
     const options = {
       method: "POST",
       headers: {
@@ -208,10 +211,8 @@ function Personal() {
       );
 
       if (response.ok) {
-        // Handle successful response
         console.log("Data submitted successfully");
       } else {
-        // Handle error response
         console.error("Failed to submit data");
       }
     } catch (error) {
@@ -390,10 +391,10 @@ function Personal() {
 
                   <MDBCol md="9" className="pe-5">
                     <MDBInput
-                      label="Username"
+                      label="user_name"
                       onChange={handleInputChange}
                       size="lg"
-                      id="username"
+                      id="user_name"
                       type="text"
                     />
                   </MDBCol>
@@ -408,10 +409,10 @@ function Personal() {
 
                   <MDBCol md="9" className="pe-5">
                     <MDBInput
-                      label="Full Name"
+                      label="name"
                       onChange={handleInputChange}
                       size="lg"
-                      id="fullName"
+                      id="name"
                       type="text"
                     />
                   </MDBCol>

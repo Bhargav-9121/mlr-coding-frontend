@@ -35,6 +35,10 @@ export default function ProfilePage({ stats }) {
     insta_handle: "",
     linkedin_handle: "",
     github: "",
+    roll_no: "",
+    name: "",
+    user_name: "",
+    profile: "",
   });
 
   const handleChange = (e) => {
