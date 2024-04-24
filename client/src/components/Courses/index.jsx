@@ -1,12 +1,53 @@
-import "./index.css";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 
-const Courses = () => {
-  console.log("Courses");
+const bull = (
+  <Box
+    component="span"
+    sx={{
+      display: "inline-block",
+      mx: "2px",
+      transform: "scale(0.8)",
+      width: 10,
+    }}
+  >
+    •
+  </Box>
+);
+
+const card = (
+  <React.Fragment>
+    <CardContent>
+      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+        Course ID: xxxxxx
+      </Typography>
+      <Typography variant="h5" component="div">
+        Python
+      </Typography>
+      <Typography sx={{ mb: 1.5 }} color="text.secondary">
+        Beginner
+      </Typography>
+      <Typography variant="body2">
+        well meaning and kindly.
+        <br />
+        {'"a benevolent smile"'}
+      </Typography>
+    </CardContent>
+    <CardActions>
+      <Button size="small">Learn More</Button>
+    </CardActions>
+  </React.Fragment>
+);
+
+export default function OutlinedCard() {
   return (
-    <div className="courses-div">
-      <h1>Courses Page</h1>
-    </div>
+    <Box sx={{ maxWidth: 350, paddingLeft: 5 }}>
+      <Card variant="outlined">{card}</Card>
+    </Box>
   );
-};
-
-export default Courses;
+}

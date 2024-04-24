@@ -24,7 +24,12 @@ function NavBar() {
 
   return (
     <>
-      <Navbar className="bg-purple" variant="dark" expand="lg" fixed="top">
+      <Navbar
+        className="bg-purple sticky"
+        variant="dark"
+        expand="lg"
+        // fixed="top"
+      >
         <Container>
           <Navbar.Brand as={Link} to="/leaderboard">
             MLR Eyuuuu
