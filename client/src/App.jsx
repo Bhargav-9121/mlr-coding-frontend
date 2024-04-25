@@ -3,12 +3,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import DataTable from "./components/DataTable";
 import api from "./api/axiosConfig";
 import ProfilePage from "./components/Profile";
-// import NavBar from "./components/NavBar";
-// import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./components/LoginPage";
 import NotFound from "./components/NotFound";
-import Courses from "./components/Courses";
-import CourseDetails from "./components/CourseDetails";
+import CourseList from "./components/CourseList";
 import Contests from "./components/Contests";
 import JobsPage from "./components/JobsPage";
 import Forgot from "./components/Forgot";
@@ -58,9 +55,7 @@ const App = () => {
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/forgot" element={<Forgot />} />
-          {/* <Route element={<ProtectedRoute />}> */}
-          <Route exact path="/courses" element={<Courses />} />
-          <Route exact path="/courses/:id" element={<CourseDetails />} />
+          <Route exact path="/courses" element={<CourseList />} />
           <Route
             exact
             path="/leaderboard"
@@ -78,7 +73,6 @@ const App = () => {
             path="/profile"
             element={<ProfilePage stats={stats} onLoad={getStats} />}
           />
-
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
