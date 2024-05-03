@@ -6,6 +6,7 @@ const Forgot = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
+  const [data, setData] = useState("");
   const [OTP, setOTP] = useState("");
   const [enteredOTP, setEnteredOTP] = useState("");
   const [verificationError, setVerificationError] = useState(null);
@@ -38,7 +39,7 @@ const Forgot = () => {
       },
       body: JSON.stringify(emailData),
     };
-    console.log(options.body);
+
     try {
       const res = await fetch(
         "https://scoretracking-vishnu.onrender.com/sendotp",
@@ -78,7 +79,7 @@ const Forgot = () => {
           throw new Error("Error");
         }
 
-        const data = await res.json();
+        setData(await res.json());
 
         console.log(data);
       } catch (error) {
@@ -116,6 +117,7 @@ const Forgot = () => {
           {verificationError && (
             <p style={{ paddingTop: "100px" }}>{verificationError}</p>
           )}
+          {setOtpSent && <p style={{ paddingTop: "100px" }}>{data}</p>}
         </div>
       )}
     </div>

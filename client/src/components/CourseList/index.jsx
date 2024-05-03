@@ -3,7 +3,6 @@ import "./index.css";
 
 function CourseList() {
   //   const [courses, setCourses] = useState([]);
-
   //   useEffect(() => {
   //     fetch("URL")
   //       .then((response) => response.json())
@@ -13,7 +12,7 @@ function CourseList() {
 
   const courses = [
     {
-      courseid: "C001",
+      courseid: "CS101",
       coursetags: ["programming", "web development"],
       title: "Introduction to Programming",
       description:

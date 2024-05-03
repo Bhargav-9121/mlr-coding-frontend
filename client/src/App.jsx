@@ -12,6 +12,7 @@ import Forgot from "./components/Forgot";
 import Personal from "./components/Personal";
 import LandingPage from "./components/LandingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ModulesPage from "./components/ModulesPage";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -21,7 +22,6 @@ const App = () => {
       const response = await api.get("/leaderboard");
       const sortedData = response.data.sort((a, b) => b.total - a.total);
       setData(sortedData);
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -51,11 +51,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path="/" element={<LandingPage />} />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/forgot" element={<Forgot />} />
         <Route element={<ProtectedRoute />}>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/login" element={<LoginPage />} />
-          <Route exact path="/forgot" element={<Forgot />} />
           <Route exact path="/courses" element={<CourseList />} />
+          <Route exact path="/modules-page/:id" element={<ModulesPage />} />
           <Route
             exact
             path="/leaderboard"
