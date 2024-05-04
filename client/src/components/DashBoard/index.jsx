@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { PieChart } from "@mui/x-charts/PieChart";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";

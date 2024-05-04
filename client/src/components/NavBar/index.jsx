@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Navbar, Container, Nav, Image } from "react-bootstrap";
 import { NavDropdown } from "react-bootstrap";
 import { FaUser } from "react-icons/fa";
@@ -41,35 +42,35 @@ function NavBar() {
               style={{ gap: "5vw", fontSize: "1.1rem" }}
             >
               <Nav.Link as={Link} to="/leaderboard" className="text-white">
-                <div align="center">
+                <div style={{ textAlign: "center" }}>
                   <MdLeaderboard />
                   <br />
                   <div>Leaderboard</div>
                 </div>
               </Nav.Link>
               <Nav.Link as={Link} to="/courses" className="text-white">
-                <div align="center">
+                <div style={{ textAlign: "center" }}>
                   <IoBookOutline />
                   <br />
                   <div>Courses</div>
                 </div>
               </Nav.Link>
               <Nav.Link as={Link} to="/jobs" className="text-white">
-                <div align="center">
+                <div style={{ textAlign: "center" }}>
                   <MdWork />
                   <br />
                   <div>Jobs</div>
                 </div>
               </Nav.Link>
               <Nav.Link as={Link} to="/xp" className="text-white">
-                <div align="center">
+                <div style={{ textAlign: "center" }}>
                   <IoMdGift />
                   <br />
                   <div>XP</div>
                 </div>
               </Nav.Link>
               <Nav.Link as={Link} to="/contests" className="text-white">
-                <div align="center">
+                <div style={{ textAlign: "center" }}>
                   <FaLaptopCode />
                   <br />
                   <div>Contests</div>

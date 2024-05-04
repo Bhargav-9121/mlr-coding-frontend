@@ -1,4 +1,4 @@
-// ModuleCards.jsx
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import "./index.css";
 
@@ -12,6 +12,7 @@ const ModuleCards = ({ module }) => {
   return (
     <div className="module-card">
       <h2 onClick={toggleLessons}>{module.module_title}</h2>
+
       {showLessons && (
         <div className="lessons-container">
           {module.lessons.map((lesson) => (
