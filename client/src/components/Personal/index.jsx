@@ -92,11 +92,12 @@ function Personal() {
         try {
           setUploadingCV(true);
           const formData = new FormData();
-          formData.append('cv', selectedCV);
+          formData.append('file', selectedCV);
     
-          const response = await api.post('/upload-cv', formData, {
+          const response = await api.post('/uresume', formData, {
             headers: {
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'multipart/form-data',
+              'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
             }
           });
     
@@ -160,11 +161,12 @@ function Personal() {
         try {
           setUploadingPhoto(true);
           const formData = new FormData();
-          formData.append('photo', selectedPhoto);
+          formData.append('file', selectedPhoto);
       
-          const response = await api.post('/upload-photo', formData, {
+          const response = await api.post('/uimage', formData, {
             headers: {
-              'Content-Type': 'multipart/form-data'
+              'Content-Type': 'multipart/form-data',
+              'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
             }
           });
       
@@ -195,18 +197,18 @@ function Personal() {
     
       const handleSubmit = async () => {
         try {
-          const response = await api.post('/personal', {
-            method: 'POST',
+          const response = await api.post('/udetails', formData ,{
             headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
+              'Content-Type': 'multipart/form-data',
+              'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
+            }
           });
-          if (response.ok) {
+          if (response.status === 200) {
             // Handle successful response
-            console.log('Data submitted successfully');
+            console.log('Data submitted successfully: ', response);
           } else {
             // Handle error response
+            console.log(JSON.stringify(formData))
             console.error('Failed to submit data');
           }
         } catch (error) {

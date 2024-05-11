@@ -1,57 +1,132 @@
-import React from 'react';
-import CalendarHeatmap from 'react-calendar-heatmap';
-import { Tooltip } from 'react-tooltip';
+// import React from 'https://cdn.skypack.dev/react?min';
+// import ReactDOM from 'https://cdn.skypack.dev/react-dom?min';
+import moment from 'moment'
+import './index.scss';
+import { useState } from 'react';
 
-import 'react-calendar-heatmap/dist/styles.css';
-import 'react-tooltip/dist/react-tooltip.css';
 
-const today = new Date();
+const DayNames = {
+  1: '',
+  3: '',
+  5: ''
+}
 
-function HeatMap() {
-  const randomValues = getRange(200).map(index => {
-    return {
-      date: shiftDate(today, -index),
-      count: getRandomInt(1, 3),
-    };
-  });
+function Cell({ color, count }) {
+  let style = {
+    backgroundColor: color
+  };
+
+  // setIsNewMonth(count.date);
+
+  
+  console.log(parseInt(JSON.stringify(count.date).substring(9, 11)))
+  
   return (
-    <div>
-      <CalendarHeatmap
-        startDate={shiftDate(today, -100)}
-        endDate={today}
-        values={randomValues}
-        classForValue={value => {
-          if (!value) {
-            return 'color-empty';
-          }
-          return `color-github-${value.count}`;
-        }}
-        tooltipDataAttrs={value => {
-          return {
-            'data-tip': `${value.date.toISOString().slice(0, 10)} has count: ${value.count}`,
-          };
-        }}
-        showWeekdayLabels={true}
-        onClick={value => alert(`Clicked on value with count: ${value.count}`)}
-      />
-      <a data-tooltip-id="my-tooltip"> ◕‿‿◕ </a>
-      <Tooltip id="my-tooltip" content="Hello world!" events={['hover']} />
+    <div
+      className='timeline-cells-cell'
+      style={{
+        ...style,
+        marginLeft: parseInt(JSON.stringify(count.date).substring(9, 11)) == 1 ? '40px' : '0'
+      }}
+      title={`Date : ${JSON.stringify(count.date).substring(1, 11)} \nSolved : ${JSON.stringify(count.value)}`}
+    ></div>
+  )
+  
+  
+}
+
+
+function Month({ startDate, index }) {
+  let date = moment(startDate).add(index * 7, 'day');
+  let monthName = date.format('MMM');
+
+  return (
+    <div className={`timeline-months-month ${monthName}`}>
+      {monthName}
+    </div>
+  )
+}
+
+function WeekDay({ index }) {
+  return (
+    <div className='timeline-weekdays-weekday'>
+      {DayNames[index]}
+    </div>
+  )
+}
+
+function Timeline({ range, data, colorFunc }) {
+  let days = Math.abs(range[0].diff(range[1], 'days'));
+  let cells = Array.from(new Array(days));
+  let weekDays = Array.from(new Array(7));
+  let months = Array.from(new Array(Math.floor(days / 7)));
+
+  let min = Math.min(0, ...data.map(d => d.value));
+  let max = Math.max(...data.map(d => d.value));
+
+  let colorMultiplier = 1 / (max - min);
+
+  let startDate = range[0];
+  const DayFormat = 'DDMMYYYY';
+
+
+  return (
+    <div className='timeline'>
+
+      <div className="timeline-months">
+        {months.map((_, index) => <Month key={index} index={index} startDate={startDate} />)}
+      </div>
+
+      <div className="timeline-body">
+
+        <div className="timeline-weekdays">
+          {weekDays.map((_, index) => <WeekDay key={index} index={index} startDate={startDate} />)}
+        </div>
+
+        <div className="timeline-cells">
+          {cells.map((_, index) => {
+            let date = moment(startDate).add(index, 'day');
+            // console.log(date)
+            let dataPoint = data.find(d => moment(date).format(DayFormat) === moment(d.date).format(DayFormat));
+            let alpha = colorMultiplier * dataPoint.value;
+            let color = colorFunc({ alpha });
+
+            return (
+              <Cell
+                key={index}
+                index={index}
+                date={date}
+                color={color}
+                count = {dataPoint}
+              />
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
 
-function shiftDate(date, numDays) {
-  const newDate = new Date(date);
-  newDate.setDate(newDate.getDate() + numDays);
-  return newDate;
-}
+function HeatMap() {
 
-function getRange(count) {
-  return Array.from({ length: count }, (_, i) => i);
-}
+  // const [isNewMonth, setIsNewMonth] = useState(false);
+  // 1 year range
+  let startDate = moment().add(-120, 'days');
+  let dateRange = [startDate, moment()];
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+  let data = Array.from(new Array(365)).map((_, index) => {
+    return {
+      date: moment(startDate).add(index, 'day'),
+      value: Math.floor(Math.random() * 100)
+    };
+  });
+
+  return (
+    <>
+      <Timeline range={dateRange} data={data} colorFunc={({ alpha }) => `rgba(5, 5,  200, ${alpha})`} />
+    </>
+  )
 }
 
 export default HeatMap;

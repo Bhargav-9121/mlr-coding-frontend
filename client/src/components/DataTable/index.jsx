@@ -1,5 +1,6 @@
 import { DataGrid ,  gridClasses  } from "@mui/x-data-grid";
 import { alpha, styled } from '@mui/material/styles';
+import { useEffect, useState } from "react";
 
 const ODD_OPACITY = 0.2;
 const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
@@ -36,17 +37,17 @@ const StripedDataGrid = styled(DataGrid)(({ theme }) => ({
 }));
 
 const columns = [
-  { field: "Rank", headerName: "Rank", width: 130 ,headerClassName: 'super-app-theme--header',
+  { field: "rank", headerName: "rank", width: 130 ,headerClassName: 'super-app-theme--header',
   headerAlign: 'center', cellClassName : 'super-app-theme--cell'},
-  { field: "Roll_Number", headerName: "Roll No", width: 200, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
-  { field: "Name", headerName: "Name", width: 300, headerClassName: 'super-app-theme--header', headerAlign: 'center' , cellClassName: 'super-app-theme--name'},
-  { field: "hackerrank", headerName: "Hackerrank", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
+  { field: "name", headername: "Name", width: 300, headerClassName: 'super-app-theme--header', headerAlign: 'center' , cellClassName: 'super-app-theme--name'},
+  { field: "roll_no", headerName: "Roll Number", width: 200, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
   { field: "leetcode", headerName: "LeetCode", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
-  { field: "codechef", headerName: "Codechef", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
   { field: "codeforces", headerName: "Codeforces", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
+  { field: "codechef", headerName: "Codechef", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
+  { field: "hackerrank", headerName: "Hackerrank", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
   { field: "spoj", headerName: "SPOJ", type: "number", width: 130, headerClassName: 'super-app-theme--header', headerAlign: 'center' ,cellClassName : 'super-app-theme--cell'},
   {
-    field: "total",
+    field: "totalScore",
     headerName: "Total Score",
     type: "number",
     width: 130,
@@ -59,14 +60,38 @@ const columns = [
   // { field: "rank", headerName: "Rank", width: 100 }, // Optional
 ];
 
-
+function convertToCSV(data) {
+  if (!data || data.length === 0) {
+    return ''; // Return an empty string if data is undefined, null, or empty
+  }
+  const header = Object.keys(data[0]).join(',');
+  const rows = data.map(row => Object.values(row).join(','));
+  return header + '\n' + rows.join('\n');
+}
 
 export default function DataTable({ data }) {
+  const [csvData, setCsvData] = useState('');
+
+  // Update CSV data when component receives new data
+  useEffect(() => {
+    setCsvData(convertToCSV(data));
+  }, [data]);
   data = data.map((row, index) => ({ ...row, Rank: index + 1 }));
+
+  function handleDownload() {
+    const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + encodeURIComponent(csvData);
+    const link = document.createElement('a');
+    link.setAttribute('href', csvContent);
+    link.setAttribute('download', 'data.csv');
+    document.body.appendChild(link);
+    link.click();
+  }
 
   return (
     <div>
       <div style={ {paddingTop :'100px', display:"flex", justifyContent:'center', fontSize:'20px'} }>Batch 2026 - Leaderboard</div>
+      <button onClick={handleDownload}>Download CSV</button>
+
       <StripedDataGrid rows={data} columns={columns} 
         getRowClassName={(params) =>
           params.indexRelativeToCurrentPage % 2 === 0 ? 'even' : 'odd'
