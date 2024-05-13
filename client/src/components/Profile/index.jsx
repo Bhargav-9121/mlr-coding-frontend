@@ -5,7 +5,7 @@ import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import "./index.css";
-
+import api from "../../api/axiosConfig";
 import {
   MDBCol,
   MDBContainer,
@@ -14,67 +14,46 @@ import {
   MDBCardText,
   MDBCardBody,
   MDBCardImage,
-  MDBProgress,
-  MDBProgressBar,
   MDBIcon,
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
+import DashBoard from "../DashBoard";
+import HeatMap from "../HeatMap";
+import { useEffect, useState } from "react";
 
-export default function ProfilePage({ stats }) {
-  const [userDetails, setUserDetails] = useState({
-    dob: "",
-    gender: "",
-    about_me: "",
-    building: "",
-    state: "",
-    city: "",
-    street: "",
-    postal_code: "",
-    fb_handle: "",
-    twitter_handle: "",
-    insta_handle: "",
-    linkedin_handle: "",
-    github: "",
-    roll_no: "",
-    name: "",
-    user_name: "",
-    profile: "",
-  });
+export default function ProfilePage() {
+  
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserDetails((prevUserDetails) => ({
-      ...prevUserDetails,
-      [name]: value,
-    }));
-  };
+  const [dashboardData, setDashboardData] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch(
-        "https://scoretracking-vishnu.onrender.com/udetails",
-        {
-          method: "POST",
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const response = await api.get('/dashboard', {
           headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userDetails),
-        }
-      );
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      // Handle success
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+            'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
+          }
+        });
 
-  if (!stats) {
+        if (response.status === 200) {
+          setDashboardData(response.data);
+          console.log(response.data);
+        } else {
+          console.error('Failed to fetch dashboard details');
+        }
+      } catch (error) {
+        console.error('Error fetching dashboard details:', error);
+      }
+    };
+
+    fetchDashboardData();
+  }, []); // Empty dependency array ensures that this effect runs only once after the initial render
+
+  if (!dashboardData) {
     return <div>Loading...</div>;
   }
+  console.log(dashboardData)
   return (
     <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
       <MDBContainer className="py-5">
@@ -100,8 +79,8 @@ export default function ProfilePage({ stats }) {
                   </MDBCol>
 
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">
-                      {stats && stats.Name}
+                    <MDBCardText className="text-muted"> Vishnu E Tej
+                      {dashboardData && dashboardData.user_name}
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
@@ -112,7 +91,7 @@ export default function ProfilePage({ stats }) {
                   </MDBCol>
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">
-                      example@example.com
+                      evishnutej@gmail.com
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
@@ -134,7 +113,7 @@ export default function ProfilePage({ stats }) {
                   </MDBCol>
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">
-                      (098) 765-4321
+                      7674972704
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
@@ -145,7 +124,7 @@ export default function ProfilePage({ stats }) {
                   </MDBCol>
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted">
-                      Bay Area, San Francisco, CA
+                      Bolarum, Secunderabad
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
@@ -199,67 +178,22 @@ export default function ProfilePage({ stats }) {
             <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
-                  <div>Coding Analysis:</div>
-                  <DashBoard stats={stats} />
+                      <div>Coding Analysis:</div>
+                      <DashBoard stats={null}/>
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>
             <MDBRow>
-              <MDBCard className="mb-4 mb-md-0">
-                <MDBCardBody>
-                  <MDBCardText className="mb-4">
-                    <span className="text-primary font-italic me-1">
-                      assignment
-                    </span>{" "}
-                    Project Status
-                  </MDBCardText>
-                  <MDBCardText className="mb-1" style={{ fontSize: ".77rem" }}>
-                    Web Design
-                  </MDBCardText>
-                  <MDBProgress className="rounded">
-                    <MDBProgressBar width={80} valuemin={0} valuemax={100} />
-                  </MDBProgress>
-
-                  <MDBCardText
-                    className="mt-4 mb-1"
-                    style={{ fontSize: ".77rem" }}
-                  >
-                    Website Markup
-                  </MDBCardText>
-                  <MDBProgress className="rounded">
-                    <MDBProgressBar width={72} valuemin={0} valuemax={100} />
-                  </MDBProgress>
-
-                  <MDBCardText
-                    className="mt-4 mb-1"
-                    style={{ fontSize: ".77rem" }}
-                  >
-                    One Page
-                  </MDBCardText>
-                  <MDBProgress className="rounded">
-                    <MDBProgressBar width={89} valuemin={0} valuemax={100} />
-                  </MDBProgress>
-
-                  <MDBCardText
-                    className="mt-4 mb-1"
-                    style={{ fontSize: ".77rem" }}
-                  >
-                    Mobile Template
-                  </MDBCardText>
-                  <MDBProgress className="rounded">
-                    <MDBProgressBar width={55} valuemin={0} valuemax={100} />
-                  </MDBProgress>
-
-                  <MDBCardText
-                    className="mt-4 mb-1"
-                    style={{ fontSize: ".77rem" }}
-                  >
-                    Backend API
-                  </MDBCardText>
-                  <MDBProgress className="rounded">
-                    <MDBProgressBar width={66} valuemin={0} valuemax={100} />
-                  </MDBProgress>
-                </MDBCardBody>
+              <MDBCard className="mb-4 mb-md-0" style={{paddingTop: '2rem', paddingLeft: 0}}>
+                <div style={{display: 'flex' , justifyContent: 'space-evenly', alignItems: 'end'}}>
+                  <div>
+                    Total Active Days: 4
+                  </div>
+                  <div>
+                    Max Streak : 2
+                  </div>
+                </div>
+              <HeatMap style={{width: '10rem'}}/>
               </MDBCard>
             </MDBRow>
           </MDBCol>

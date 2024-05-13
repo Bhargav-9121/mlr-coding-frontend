@@ -108,6 +108,7 @@ function Personal() {
         },
       });
 
+
       if (response.status === 200) {
         console.log("CV uploaded successfully");
         // Optionally, you can update state or show a success message

@@ -10,6 +10,7 @@ import Contests from "./components/Contests";
 import JobsPage from "./components/JobsPage";
 import Forgot from "./components/Forgot";
 import Personal from "./components/Personal";
+import AllCourses from "./components/Course";
 import LandingPage from "./components/LandingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ModulesPage from "./components/ModulesPage";
@@ -19,13 +20,21 @@ const App = () => {
 
   const getData = async () => {
     try {
-      const response = await api.get("/leaderboard");
-      const sortedData = response.data.sort((a, b) => b.total - a.total);
+      const response = await api.get("/leaderboard", {
+        headers: {
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
+        }
+      });
+      console.log(response.data);
+      // const sortedData = response.data.sort((a, b) => b.total - a.total);
+      const sortedData = response.data;
       setData(sortedData);
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   const [stats, setStats] = useState(null);
 
@@ -70,10 +79,10 @@ const App = () => {
             element={<Personal data={data} onLoad={getData} />}
           />
           <Route
-            exact
-            path="/profile"
-            element={<ProfilePage stats={stats} onLoad={getStats} />}
+            path="/courses"
+            element={<AllCourses/>}
           />
+          <Route exact path="/profile" element={<ProfilePage stats={stats} onLoad={getStats} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
