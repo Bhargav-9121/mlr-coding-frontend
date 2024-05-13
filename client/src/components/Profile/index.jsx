@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+import { useState } from "react";
+
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -52,8 +55,7 @@ export default function ProfilePage() {
   }
   console.log(dashboardData)
   return (
-
-    <section style={{ backgroundColor: '#eee' , paddingTop :'50px'}}>
+    <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
       <MDBContainer className="py-5">
         <MDBRow>
           <MDBCol lg="4">
@@ -75,6 +77,7 @@ export default function ProfilePage() {
                   <MDBCol sm="3">
                     <MDBCardText>Full Name</MDBCardText>
                   </MDBCol>
+
                   <MDBCol sm="9">
                     <MDBCardText className="text-muted"> Vishnu E Tej
                       {dashboardData && dashboardData.user_name}
@@ -172,8 +175,7 @@ export default function ProfilePage() {
             </MDBCard>
           </MDBCol>
           <MDBCol lg="8">
-
-          <MDBRow className="mb-4">
+            <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
                       <div>Coding Analysis:</div>
@@ -192,9 +194,7 @@ export default function ProfilePage() {
                   </div>
                 </div>
               <HeatMap style={{width: '10rem'}}/>
-                
               </MDBCard>
-              
             </MDBRow>
           </MDBCol>
         </MDBRow>

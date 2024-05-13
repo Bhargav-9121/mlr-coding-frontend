@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
 export default axios.create({
-    baseURL:'https://scoretracking-vishnu.onrender.com'
+  baseURL: "https://scoretracking-vishnu.onrender.com",
 });
+

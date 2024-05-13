@@ -1,0 +1,27 @@
+.module-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.module-card h2 {
+  margin: 0;
+}
+
+.lessons-container {
+  margin-top: 10px;
+}
+
+.lesson {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.modules-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
