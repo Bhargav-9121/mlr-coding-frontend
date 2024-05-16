@@ -12,7 +12,7 @@ function CourseList() {
 
   const courses = [
     {
-      courseid: "CS101",
+      courseid: "python2024-ii",
       coursetags: ["programming", "web development"],
       title: "Introduction to Programming",
       description:

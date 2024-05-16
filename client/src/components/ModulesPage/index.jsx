@@ -1,11 +1,10 @@
-// ModulesPage.jsx
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import ModuleCards from "../ModuleCards";
 import "./index.css";
 
 const ModulesPage = () => {
-  const { id } = useParams();
+  const { id, title } = useParams();
 
   const [modules, setModules] = useState({});
 
@@ -13,12 +12,12 @@ const ModulesPage = () => {
     const fetchModules = async () => {
       try {
         const response = await fetch(
-          `https://scoretracking-vishnu.onrender.com/fetch/courses/${id}`
+          `http://13.201.156.87:8800/fetch/course/${id}`
         );
 
         const data = await response.json();
         setModules(data);
-        console.log(data);
+        console.log("Mdoules are: ", data);
       } catch (error) {
         console.log("Error Fetching Modules", error);
       }
@@ -29,6 +28,7 @@ const ModulesPage = () => {
 
   return (
     <div className="modules-container">
+      <h2 className="course-title">{title}</h2>
       {modules.modules &&
         modules.modules.map((each) => (
           <ModuleCards key={each._id} module={each} />
@@ -38,43 +38,3 @@ const ModulesPage = () => {
 };
 
 export default ModulesPage;
-
-// // ModulesPage.jsx
-// import { useParams } from "react-router-dom";
-// import { useState, useEffect } from "react";
-// import ModuleCards from "../ModuleCards";
-
-// const ModulesPage = () => {
-//   const { id } = useParams();
-
-//   const [modules, setModules] = useState({});
-
-//   useEffect(() => {
-//     const fetchModules = async () => {
-//       try {
-//         const response = await fetch(
-//           `https://scoretracking-vishnu.onrender.com/fetch/courses/${id}`
-//         );
-
-//         const data = await response.json();
-//         setModules(data);
-//         console.log(data);
-//       } catch (error) {
-//         console.log("Error Fetching Modules", error);
-//       }
-//     };
-
-//     fetchModules();
-//   }, []);
-
-//   return (
-//     <div className="modules-container">
-//       {modules.modules &&
-//         modules.modules.map((each) => (
-//           <ModuleCards key={each._id} module={each} />
-//         ))}
-//     </div>
-//   );
-// };
-
-// export default ModulesPage;

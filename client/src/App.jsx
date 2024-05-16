@@ -10,10 +10,11 @@ import Contests from "./components/Contests";
 import JobsPage from "./components/JobsPage";
 import Forgot from "./components/Forgot";
 import Personal from "./components/Personal";
-import AllCourses from "./components/Course";
+// import AllCourses from "./components/Course";
 import LandingPage from "./components/LandingPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import ModulesPage from "./components/ModulesPage";
+import LessonContent from "./components/LessonContent";
 
 const App = () => {
   const [data, setData] = useState([]);
@@ -22,9 +23,10 @@ const App = () => {
     try {
       const response = await api.get("/leaderboard", {
         headers: {
-          'Content-Type': 'application/json',
-          'authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
-        }
+          "Content-Type": "application/json",
+          authorization:
+            "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo",
+        },
       });
       console.log(response.data);
       // const sortedData = response.data.sort((a, b) => b.total - a.total);
@@ -34,7 +36,6 @@ const App = () => {
       console.log(error);
     }
   };
-  
 
   const [stats, setStats] = useState(null);
 
@@ -65,12 +66,18 @@ const App = () => {
         <Route exact path="/forgot" element={<Forgot />} />
         <Route element={<ProtectedRoute />}>
           <Route exact path="/courses" element={<CourseList />} />
-          <Route exact path="/modules-page/:id" element={<ModulesPage />} />
+          <Route
+            exact
+            path="/modules-page/:id/:title"
+            element={<ModulesPage />}
+          />
+
           <Route
             exact
             path="/leaderboard"
             element={<DataTable data={data} onLoad={getData} />}
           />
+          <Route exact path="/lesson-page/:id" element={<LessonContent />} />
           <Route exact path="/contests" element={<Contests />} />
           <Route exact path="/jobs" element={<JobsPage />} />
           <Route
@@ -78,11 +85,12 @@ const App = () => {
             path="/personal"
             element={<Personal data={data} onLoad={getData} />}
           />
+          {/* <Route path="/courses" element={<AllCourses />} /> */}
           <Route
-            path="/courses"
-            element={<AllCourses/>}
+            exact
+            path="/profile"
+            element={<ProfilePage stats={stats} onLoad={getStats} />}
           />
-          <Route exact path="/profile" element={<ProfilePage stats={stats} onLoad={getStats} />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

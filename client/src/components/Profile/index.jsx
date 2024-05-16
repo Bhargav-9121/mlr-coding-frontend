@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import DashBoard from "../DashBoard";
+import HeatMap from "../HeatMap";
 
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -18,32 +20,28 @@ import {
   MDBListGroup,
   MDBListGroupItem,
 } from "mdb-react-ui-kit";
-import DashBoard from "../DashBoard";
-import HeatMap from "../HeatMap";
-import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
-  
-
   const [dashboardData, setDashboardData] = useState(null);
 
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
-        const response = await api.get('/dashboard', {
+        const response = await api.get("/dashboard", {
           headers: {
-            'authorization' : 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo'
-          }
+            authorization:
+              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xsX25vIjoiMjFyMjFhNjYxNCIsImlhdCI6MTcxMjUxMDU5NH0.Jpch2FREAiCEd4ru19lLHb279oJRRo2hqU5CNYUVWAo",
+          },
         });
 
         if (response.status === 200) {
           setDashboardData(response.data);
           console.log(response.data);
         } else {
-          console.error('Failed to fetch dashboard details');
+          console.error("Failed to fetch dashboard details");
         }
       } catch (error) {
-        console.error('Error fetching dashboard details:', error);
+        console.error("Error fetching dashboard details:", error);
       }
     };
 
@@ -53,7 +51,7 @@ export default function ProfilePage() {
   if (!dashboardData) {
     return <div>Loading...</div>;
   }
-  console.log(dashboardData)
+  console.log(dashboardData);
   return (
     <section style={{ backgroundColor: "#eee", paddingTop: "50px" }}>
       <MDBContainer className="py-5">
@@ -79,7 +77,9 @@ export default function ProfilePage() {
                   </MDBCol>
 
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted"> Vishnu E Tej
+                    <MDBCardText className="text-muted">
+                      {" "}
+                      Vishnu E Tej
                       {dashboardData && dashboardData.user_name}
                     </MDBCardText>
                   </MDBCol>
@@ -112,9 +112,7 @@ export default function ProfilePage() {
                     <MDBCardText>Mobile</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">
-                      7674972704
-                    </MDBCardText>
+                    <MDBCardText className="text-muted">7674972704</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -178,22 +176,27 @@ export default function ProfilePage() {
             <MDBRow className="mb-4">
               <MDBCard>
                 <MDBCardBody>
-                      <div>Coding Analysis:</div>
-                      <DashBoard stats={null}/>
+                  <div>Coding Analysis:</div>
+                  <DashBoard stats={null} />
                 </MDBCardBody>
               </MDBCard>
             </MDBRow>
             <MDBRow>
-              <MDBCard className="mb-4 mb-md-0" style={{paddingTop: '2rem', paddingLeft: 0}}>
-                <div style={{display: 'flex' , justifyContent: 'space-evenly', alignItems: 'end'}}>
-                  <div>
-                    Total Active Days: 4
-                  </div>
-                  <div>
-                    Max Streak : 2
-                  </div>
+              <MDBCard
+                className="mb-4 mb-md-0"
+                style={{ paddingTop: "2rem", paddingLeft: 0 }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                    alignItems: "end",
+                  }}
+                >
+                  <div>Total Active Days: 4</div>
+                  <div>Max Streak : 2</div>
                 </div>
-              <HeatMap style={{width: '10rem'}}/>
+                <HeatMap style={{ width: "10rem" }} />
               </MDBCard>
             </MDBRow>
           </MDBCol>

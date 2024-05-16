@@ -40,7 +40,13 @@ export default function CourseCard({ course }) {
         </CardContent>
         <CardActions>
           <Button size="small">
-            <Link to={`/modules-page/${course.courseid}`}>Enter Course</Link>
+            <Link
+              to={`/modules-page/${course.courseid}/${encodeURIComponent(
+                course.title
+              )}`}
+            >
+              Enter Course
+            </Link>
           </Button>
         </CardActions>
       </Card>
