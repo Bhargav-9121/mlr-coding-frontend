@@ -42,7 +42,9 @@ const LoginPage = () => {
     };
     try {
       const res = await fetch(
-        "https://scoretracking-vishnu.onrender.com/authenticate",
+        // "https://scoretracking-vishnu.onrender.com/authenticate"
+        "http://localhost:8800/authenticate"
+        ,
         options
       );
       const data = await res.json();
