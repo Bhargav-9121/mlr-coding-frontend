@@ -1,37 +1,44 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import "./index.css";
 
-const LessonContent = () => {
-  const { id } = useParams();
+const LessonContent = ({ lessonId }) => {
   const [lessonData, setLessonData] = useState(null);
 
   useEffect(() => {
-    const showLessonContent = async () => {
+    const fetchLessonContent = async () => {
       try {
-        const response = await fetch(
-          `http://13.201.156.87:8800/lesson/preview/${id}`
-        );
-
+        const response = await fetch(`http://localhost:8800/lesson/preview/${lessonId}`);
         const data = await response.json();
         setLessonData(data);
+        console.log(data);
       } catch (error) {
-        console.log("Error Fetching Modules", error);
+        console.log("Error Fetching Lesson Content", error);
       }
     };
 
-    showLessonContent();
-  }, []);
+    fetchLessonContent();
+  }, [lessonId]);
 
   return (
     <div>
       {lessonData && (
         <div className="lesson-details">
-          <div dangerouslySetInnerHTML={{ __html: lessonData.text_content }} />
+            {lessonData.text_content ? (
+      <div dangerouslySetInnerHTML={{ __html: lessonData.text_content }} />
+    ) : (
+      lessonData.problem_id && (
+        <div dangerouslySetInnerHTML={{ __html: lessonData.problem_id.problem_description }} />
+      )
+    )}
         </div>
       )}
     </div>
   );
+};
+
+LessonContent.propTypes = {
+  lessonId: PropTypes.string.isRequired,
 };
 
 export default LessonContent;
